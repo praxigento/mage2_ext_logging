@@ -50,7 +50,7 @@ class Logger implements \Psr\Log\LoggerInterface {
      * @return \Symfony\Component\Filesystem\Filesystem
      */
     public function getFilesystem() {
-        $result = new \Symfony\Component\Filesystem\Filesystem();
+        $result = ObjectManager::getInstance()->get('Symfony\Component\Filesystem\Filesystem');
         return $result;
     }
 
