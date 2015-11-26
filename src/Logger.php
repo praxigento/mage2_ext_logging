@@ -76,7 +76,7 @@ class Logger implements \Psr\Log\LoggerInterface {
             } else {
                 $err = "Cannot open logging configuration file '$fileName'. Default Magento logger is used.";
             }
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             $err = $e->getMessage();
         } finally {
             if(is_null($this->_logger)) {
