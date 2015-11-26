@@ -1,0 +1,31 @@
+##
+# Common case.
+##
+/bin/
+/composer.lock
+/vendor/
+##
+#   If M2 is deployed into the current folder.
+##
+/app/
+/dev/
+/lib/
+/phpserver/
+/pub/
+/setup/
+/var/
+/.htaccess
+/.htaccess.sample
+/.php_cs
+/.travis.yml
+/CHANGELOG.md
+/CONTRIBUTING.md
+/CONTRIBUTOR_LICENSE_AGREEMENT.html
+/COPYING.txt
+/Gruntfile.js
+/index.php
+/LICENSE.txt
+/LICENSE_AFL.txt
+/nginx.conf.sample
+/package.json
+/php.ini.sample

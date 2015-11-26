@@ -1,0 +1,53 @@
+{
+  "name": "praxigento/mage2_ext_logging_work",
+  "description": "Development/test environment for Monolog Cascade integration to Magento 2.",
+  "type": "project",
+  "homepage": "https://github.com/praxigento/mage2_ext_logging",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alex Gusev",
+      "email": "flancer64@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "praxigento/composer_plugin_templates": "^1.0",
+    "magento/magento-composer-installer": "^0.1",
+    "magento/product-community-edition": "2.0.0",
+    "praxigento/mage2_ext_logging": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Magento\\Setup\\": "setup/src/Magento/Setup/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": {
+    "praxigento/mage2_ext_logging": {
+      "type": "vcs",
+      "url": "https://github.com/praxigento/mage2_ext_logging"
+    }
+  },
+  "config": {
+    "use-include-path": true
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "# To complete installation launch 'sh ./bin/post_install.sh'",
+      "# To clean up Magento files launch 'sh ./bin/clean.sh'"
+    ]
+  },
+  "extra": {
+    "magento-root-dir": ".",
+    "magento-deploystrategy": "copy",
+    "praxigento_templates_config": [
+      "./templates.cfg.json",
+      "../templates.vars.work.json"
+    ]
+  }
+}

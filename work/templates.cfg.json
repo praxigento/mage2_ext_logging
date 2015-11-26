@@ -1,0 +1,22 @@
+{
+  "templates": {
+    "bin/clean.sh": {
+      "src": "../cfg/bin/clean.sh",
+      "dst": "bin/clean.sh",
+      "events": [
+        "post-install-cmd",
+        "post-status-cmd"
+      ],
+      "rewrite": true
+    },
+    "bin/post_install.sh": {
+      "src": "../cfg/bin/post_install.work.sh",
+      "dst": "bin/post_install.sh",
+      "events": [
+        "post-install-cmd",
+        "post-status-cmd"
+      ],
+      "rewrite": true
+    }
+  }
+}

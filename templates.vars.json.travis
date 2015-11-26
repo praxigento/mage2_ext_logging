@@ -1,0 +1,27 @@
+{
+  "vars": {
+    "LOCAL_ROOT": "/home/travis/build/praxigento/mage2_ext_logging/work",
+    "DEPLOYMENT_TYPE": "test",
+    "LOCAL_OWNER": "travis",
+    "LOCAL_GROUP": "www-data",
+    "CFG_ADMIN_FIRSTNAME": "Store",
+    "CFG_ADMIN_LASTNAME": "Admin",
+    "CFG_ADMIN_EMAIL": "admin@store.com",
+    "CFG_ADMIN_USER": "admin",
+    "CFG_ADMIN_PASSWORD": "eUvE7Yid057Cqtq5CkA8",
+    "CFG_BASE_URL": "http://mage2.travis.somewhere.com/",
+    "CFG_BACKEND_FRONTNAME": "admin",
+    "CFG_DB_HOST": "localhost",
+    "CFG_DB_NAME": "mage2",
+    "CFG_DB_USER": "root",
+    "CFG_DB_PASSWORD": "skip_password",
+    "CFG_LANGUAGE": "en_US",
+    "CFG_CURRENCY": "USD",
+    "CFG_TIMEZONE": "UTC",
+    "CFG_USE_REWRITES": "0",
+    "CFG_USE_SECURE": "0",
+    "CFG_USE_SECURE_ADMIN": "0",
+    "CFG_ADMI_USE_SECURITY_KEY": "0",
+    "CFG_SESSION_SAVE": "db"
+  }
+}
