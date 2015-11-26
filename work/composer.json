@@ -25,6 +25,11 @@
       "Magento\\Setup\\": "setup/src/Magento/Setup/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Magento\\TestFramework\\": "dev/tests/integration/framework/Magento/TestFramework"
+    }
+  },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "repositories": {
