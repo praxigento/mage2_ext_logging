@@ -9,7 +9,10 @@
          stopOnFailure="false"
          syntaxCheck="true"
          bootstrap="./phpunit_bootstrap.php">
-    <testsuite name="Unit Tests for Praxigento_Logging (M2)">
-        <directory suffix="_Test.php">.</directory>
+    <testsuite name="Praxigento_Logging Unit Test">
+        <directory suffix="_Test.php">../../vendor/praxigento/mage2_ext_logging/test/unit</directory>
     </testsuite>
+    <logging>
+        <log type="coverage-html" target="./build/coverage" lowUpperBound="35" highLowerBound="70"/>
+    </logging>
 </phpunit>
