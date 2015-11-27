@@ -4,12 +4,12 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <preference for="Psr\Log\LoggerInterface"
-                type="Praxigento\Core\Logger"/>
+                type="\Praxigento\Logging\Logger"/>
 
-    <type name="Praxigento\Core\Logger">
+    <type name="Praxigento\Logging\Logger">
         <arguments>
             <!-- Config file path is related to Magento 2 base directory. Absolute path can be used too. -->
-            <argument name="configFile" xsi:type="string">./var/log/logging.yaml</argument>
+            <argument name="configFile" xsi:type="string">var/log/logging.yaml</argument>
             <!-- Name of the logger in configuration file. Default: "main".  -->
             <argument name="loggerName" xsi:type="string">main</argument>
         </arguments>
