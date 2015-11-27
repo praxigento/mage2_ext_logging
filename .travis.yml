@@ -13,6 +13,7 @@ before_install:
   - sudo apt-get remove php5-xdebug # to prevent composer warning See https://getcomposer.org/xdebug
 # Display versions for tools
   - php --version
+  - phpunit --version
   - composer --version
   - git --version
 # Setup composer to use Github OAuth Token from Travis Environment Variable
@@ -29,7 +30,7 @@ before_install:
   - sh ./bin/post_install.sh # create initial DB, setup permissions, ...
 #
 script:
-  - phpunit --configuration ./test/coverage/phpunit.dist.xml
+  - php ./vendor/bin/phpunit --configuration ./test/coverage/phpunit.dist.xml
 
 notifications:
   email:
