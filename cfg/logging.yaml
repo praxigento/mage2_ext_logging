@@ -1,0 +1,27 @@
+formatters:
+    dashed:
+        class: Monolog\Formatter\LineFormatter
+        format: "%datetime%-%channel%.%level_name% - %message%\n"
+handlers:
+    debug:
+        class: Monolog\Handler\StreamHandler
+        level: DEBUG
+        formatter: dashed
+        stream: ${LOCAL_ROOT}/var/log/cascade_debug.log
+    system:
+        class: Monolog\Handler\StreamHandler
+        level: INFO
+        formatter: dashed
+        stream: ${LOCAL_ROOT}/var/log/cascade_system.log
+    exception:
+        class: Monolog\Handler\StreamHandler
+        level: EMERGENCY
+        formatter: dashed
+        stream: ${LOCAL_ROOT}/log/cascade_exception.log
+processors:
+    web_processor:
+        class: Monolog\Processor\WebProcessor
+loggers:
+    main:
+        handlers: [debug, system, exception]
+        processors: [web_processor]

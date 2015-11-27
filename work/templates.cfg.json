@@ -17,6 +17,15 @@
         "post-status-cmd"
       ],
       "rewrite": true
+    },
+    "var/log/logging.yaml": {
+      "src": "../cfg/logging.yaml",
+      "dst": "var/log/logging.yaml",
+      "events": [
+        "post-install-cmd",
+        "post-status-cmd"
+      ],
+      "rewrite": true
     }
   }
 }
