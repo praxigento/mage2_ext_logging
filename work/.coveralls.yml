@@ -4,3 +4,4 @@ coverage_clover: build/logs/clover.xml
 src_dir: ../src/
 # but PHPUnit sources are in ./vendor/... folder
 src_dir_prefix: vendor/praxigento/mage2_ext_logging/
+# commit to test code coverage
