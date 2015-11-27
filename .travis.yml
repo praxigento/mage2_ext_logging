@@ -32,6 +32,9 @@ before_install:
 script:
   - php ./vendor/bin/phpunit --configuration ./test/coverage/phpunit.dist.xml
 
+after_script:
+  - php vendor/bin/coveralls
+
 notifications:
   email:
     recipients:
