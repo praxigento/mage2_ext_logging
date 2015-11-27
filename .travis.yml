@@ -1,0 +1,39 @@
+sudo: required # use Travis Trusty env (http://docs.travis-ci.com/user/ci-environment/)
+dist: trusty
+language: generic # PHP is not available in "mega" image, so we use "minimal" image and setup runtimes separately
+
+before_install:
+# Install execution environment (php, phpunit, mysql, composer)
+  - sudo apt-get update
+  - sudo apt-get install php5 php5-gd php5-mcrypt php5-curl php5-intl php5-xsl php5-mysql
+  - sudo php5enmod mcrypt
+  - sudo apt-get install phpunit
+  - sudo apt-get install mysql-client-core-5.6 mysql-client-5.6 mysql-server-5.6
+  - sudo php -r "readfile('https://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/local/bin --filename=composer
+  - sudo apt-get remove php5-xdebug # to prevent composer warning See https://getcomposer.org/xdebug
+# Display versions for tools
+  - php --version
+  - composer --version
+  - git --version
+# Setup composer to use Github OAuth Token from Travis Environment Variable
+# (http://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings)
+#  - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
+# Deploy Magento 2 application
+  - cp templates.vars.json.travis templates.vars.work.json # create configuration for Travis from template
+# Go to working folder, copy templates.json for travis and start composer install process
+  - cd work #  go to root folder for development environment
+  - pwd # control current path ('LOCAL_ROOT' in templates.json)
+  - composer install
+# Run post installation script (deploy Magento2 itself)
+  - cat ./bin/post_install.sh # control parameters in the installation script
+  - sh ./bin/post_install.sh # create initial DB, setup permissions, ...
+#
+script:
+  - phpunit --configuration ./test/unit/phpunit.dist.xml
+
+notifications:
+  email:
+    recipients:
+      - flancer64@gmail.com
+    on_success: change # [always|never|change], default: change
+    on_failure: change # [always|never|change], default: change
