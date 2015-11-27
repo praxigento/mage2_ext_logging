@@ -31,10 +31,11 @@ before_install:
   - sudo apt-get install php5-xdebug # install xdebug (need for codecoverage)
 
 script:
-  - php ./vendor/bin/phpunit  # configuration file is 'work/.coveralls.yml'
+  - php ./vendor/bin/phpunit --configuration ./test/coverage/phpunit.dist.xml
 
 after_script:
-  - php vendor/bin/coveralls
+  - php ./vendor/bin/coveralls -v # configuration file is 'work/.coveralls.yml'
+  - cat ./build/logs/clover.xml
 
 notifications:
   email:
