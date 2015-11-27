@@ -28,7 +28,8 @@ before_install:
 # Run post installation script (deploy Magento2 itself)
   - cat ./bin/post_install.sh # control parameters in the installation script
   - sh ./bin/post_install.sh # create initial DB, setup permissions, ...
-#
+  - sudo apt-get remove php5-xdebug # install xdebug (need for codecoverage)
+
 script:
   - php ./vendor/bin/phpunit --configuration ./test/coverage/phpunit.dist.xml
 
