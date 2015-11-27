@@ -31,7 +31,7 @@ before_install:
   - sudo apt-get install php5-xdebug # install xdebug (need for codecoverage)
 
 script:
-  - php ./vendor/bin/phpunit --configuration ./test/coverage/phpunit.dist.xml
+  - php ./vendor/bin/phpunit  # configuration file is 'work/.coveralls.yml'
 
 after_script:
   - php vendor/bin/coveralls
