@@ -29,7 +29,7 @@ before_install:
   - sh ./bin/post_install.sh # create initial DB, setup permissions, ...
 #
 script:
-  - phpunit --configuration ./test/unit/phpunit.dist.xml
+  - phpunit --configuration ./test/coverage/phpunit.dist.xml
 
 notifications:
   email:
