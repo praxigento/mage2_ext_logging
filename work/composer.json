@@ -33,6 +33,14 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "repositories": {
+    "firegento": {
+      "type": "composer",
+      "url": "http://packages.firegento.com"
+    },
+    "magento": {
+      "type": "composer",
+      "url": "http://packages.magento.com/"
+    },
     "praxigento/mage2_ext_logging": {
       "type": "vcs",
       "url": "https://github.com/praxigento/mage2_ext_logging"
