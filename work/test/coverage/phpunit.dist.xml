@@ -13,8 +13,8 @@
         <directory suffix="_Test.php">../../vendor/praxigento/mage2_ext_logging/test/unit</directory>
     </testsuite>
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../../../src</directory>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">../../vendor/praxigento/mage2_ext_logging/src</directory>
         </whitelist>
     </filter>
     <logging>
