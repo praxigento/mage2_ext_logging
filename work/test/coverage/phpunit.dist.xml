@@ -14,7 +14,7 @@
     </testsuite>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">../../vendor/praxigento/mage2_ext_logging/src</directory>
+            <directory suffix=".php">../../../src</directory>
         </whitelist>
     </filter>
     <logging>
