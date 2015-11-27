@@ -42,6 +42,10 @@
       "type": "composer",
       "url": "http://packages.magento.com/"
     },
+    "satooshi/php-coveralls": {
+      "type": "vcs",
+      "url": "https://github.com/flancer64/php-coveralls"
+    },
     "praxigento/mage2_ext_logging": {
       "type": "vcs",
       "url": "https://github.com/praxigento/mage2_ext_logging"
