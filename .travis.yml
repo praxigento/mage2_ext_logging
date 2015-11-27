@@ -34,7 +34,6 @@ script:
   - php ./vendor/bin/phpunit --configuration ./test/coverage/phpunit.dist.xml
 
 after_script:
-  - cd ..
   - php vendor/bin/coveralls
 
 notifications:

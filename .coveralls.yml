@@ -1,2 +1,3 @@
-src_dir: src
-coverage_clover: work/build/logs/clover.xml
+# script ./vendor/bin/coveralls is started from ./work/ directory, all paths are related to ./work/
+src_dir: ../src
+coverage_clover: build/logs/clover.xml
