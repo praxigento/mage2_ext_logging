@@ -18,7 +18,7 @@
                 addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">../../vendor/praxigento/mage2_ext_logging/src</directory>
             <exclude>
-                <file>../../../src/registration.php</file>
+                <file>../../vendor/praxigento/mage2_ext_logging/src/registration.php</file>
             </exclude>
         </whitelist>
     </filter>
