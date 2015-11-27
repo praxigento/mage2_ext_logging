@@ -36,6 +36,7 @@ script:
 after_script:
   - php ./vendor/bin/coveralls -v # configuration file is 'work/.coveralls.yml'
   - cat ./build/logs/clover.xml
+  - cat ./build/logs/coveralls-upload.json
 
 notifications:
   email:
