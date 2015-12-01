@@ -4,7 +4,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <preference for="Psr\Log\LoggerInterface"
-                type="\Praxigento\Logging\Logger"/>
+                type="Praxigento\Logging\Logger"/>
 
     <type name="Praxigento\Logging\Logger">
         <arguments>
