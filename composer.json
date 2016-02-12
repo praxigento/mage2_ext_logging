@@ -12,8 +12,8 @@
   ],
   "require": {
     "php": ">=5.5",
-    "symfony/filesystem": "^2.7",
-    "theorchard/monolog-cascade": "^0.2"
+    "symfony/filesystem": "^2.8",
+    "theorchard/monolog-cascade": "^0.3"
   },
   "autoload": {
     "files": [
