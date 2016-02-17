@@ -1,0 +1,27 @@
+{
+  "require": {
+    "praxigento/composer_plugin_templates": "^1.0",
+    "praxigento/mage2_ext_logging": "dev-master"
+  },
+  "require-dev": {
+    "satooshi/php-coveralls": "dev-master"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Flancer32\\Sample\\Test\\": "../dev/fw"
+    }
+  },
+  "repositories": {
+    "satooshi/php-coveralls": {
+      "type": "vcs",
+      "url": "https://github.com/flancer64/php-coveralls"
+    }
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "praxigento_templates_config": [
+      "../deploy/templates.cfg.json",
+      "../templates.vars.work.json"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "templates": {
+    "var/log/logging.yaml": {
+      "src": "../deploy/logging.yaml",
+      "dst": "./var/log/logging.yaml",
+      "events": [
+        "post-update-cmd",
+        "post-status-cmd"
+      ],
+      "rewrite": true
+    }
+  }
+}
