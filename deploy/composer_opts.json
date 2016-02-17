@@ -8,7 +8,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Flancer32\\Sample\\Test\\": "../dev/fw"
+      "Magento\\TestFramework\\": "dev/tests/integration/framework/Magento/TestFramework"
     }
   },
   "repositories": {

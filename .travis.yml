@@ -18,25 +18,25 @@ before_install:
   - git --version
 # Setup composer to use Github OAuth Token from Travis Environment Variable
 # (http://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings)
-#  - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
-# Deploy Magento 2 application
-  - cp templates.vars.json.travis templates.vars.work.json # create configuration for Travis from template
-# Go to working folder, copy templates.json for travis and start composer install process
-  - cd work #  go to root folder for development environment
+  - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
+# Get auth keys: http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html
+  - composer config -g http-basic.repo.magento.com $M2_KEY_PUB $M2_KEY_PRIV
+# Copy Travis CI configuration from template and deploy Magento 2 application
   - pwd # control current path ('LOCAL_ROOT' in templates.json)
-  - composer install
+  - cp deploy_cfg.sh.travis deploy_cfg.sh # create configuration for Travis from template
+  - cp templates.vars.json.travis templates.vars.work.json # create configuration for Travis from template
+  - sh deploy.sh
 # Run post installation script (deploy Magento2 itself)
-  - cat ./bin/post_install.sh # control parameters in the installation script
-  - sh ./bin/post_install.sh # create initial DB, setup permissions, ...
   - sudo apt-get install php5-xdebug # install xdebug (need for codecoverage)
 
 script:
-  - php ./vendor/bin/phpunit --configuration ./test/coverage/phpunit.dist.xml
+  - php ./work/vendor/bin/phpunit -c ./dev/test/coverage/phpunit.dist.xml
 
 after_script:
-  - php ./vendor/bin/coveralls -v # configuration file is 'work/.coveralls.yml'
-  - cat ./build/logs/clover.xml
-  - cat ./build/logs/coveralls-upload.json
+  - cd work
+  - php ./vendor/bin/coveralls -v -c ../.coveralls.yml
+  - cat ../build/logs/clover.xml
+  - cat ../build/logs/coveralls-upload.json
 
 notifications:
   email:

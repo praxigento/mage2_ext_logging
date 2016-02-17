@@ -10,6 +10,6 @@
          syntaxCheck="true"
          bootstrap="./phpunit_bootstrap.php">
     <testsuite name="Praxigento_Logging Unit Test">
-        <directory suffix="_Test.php">../../vendor/praxigento/mage2_ext_logging/test/unit</directory>
+        <directory suffix="_Test.php">../../../work/vendor/praxigento/mage2_ext_logging/test/unit</directory>
     </testsuite>
 </phpunit>

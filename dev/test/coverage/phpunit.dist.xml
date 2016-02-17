@@ -10,20 +10,20 @@
          syntaxCheck="true"
          bootstrap="./phpunit_bootstrap.php">
     <testsuite name="Praxigento_Logging Coverage Test">
-        <directory suffix="_Test.php">../../vendor/praxigento/mage2_ext_logging/test/unit</directory>
+        <directory suffix="_Test.php">../../../work/vendor/praxigento/mage2_ext_logging/test/unit</directory>
     </testsuite>
     <filter>
         <whitelist
                 processUncoveredFilesFromWhitelist="false"
                 addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../../vendor/praxigento/mage2_ext_logging/src</directory>
+            <directory suffix=".php">../../../work/vendor/praxigento/mage2_ext_logging/src</directory>
             <exclude>
-                <file>../../vendor/praxigento/mage2_ext_logging/src/registration.php</file>
+                <file>../../../work/vendor/praxigento/mage2_ext_logging/src/registration.php</file>
             </exclude>
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="../../build/coverage" lowUpperBound="35" highLowerBound="70"/>
-        <log type="coverage-clover" target="../../build/logs/clover.xml"/>
+        <log type="coverage-html" target="../../../build/coverage" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="../../../build/logs/clover.xml"/>
     </logging>
 </phpunit>

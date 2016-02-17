@@ -1,5 +1,6 @@
 # script ./vendor/bin/coveralls is started from ./work/ directory, all paths are related to ./work/
-coverage_clover: build/logs/clover.xml
+coverage_clover: ../build/logs/clover.xml
+json_path: ../build/logs/coveralls-upload.json
 # sources are in Github repo
 src_dir: ../src/
 # but PHPUnit sources are in ./vendor/... folder
