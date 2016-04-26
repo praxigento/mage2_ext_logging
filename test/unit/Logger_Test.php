@@ -4,200 +4,119 @@
  */
 namespace Praxigento\Logging;
 
+use Magento\Framework\ObjectManagerInterface;
 use Magento\Setup\Exception;
-use Magento\TestFramework\ObjectManager;
+use Mockery;
 
 include_once(__DIR__ . '/phpunit_bootstrap.php');
 
-class Logger_UnitTest extends \PHPUnit_Framework_TestCase {
-
-    public function test_constructor_defaultMagentoLogger() {
-        /** Mock ObjectManager and runtime environment */
-        $mockObm = $this
-            ->getMockBuilder('Magento\TestFramework\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-        ObjectManager::setInstance($mockObm);
-        // $this->_logger = ObjectManager::getInstance()->get('Magento\Framework\Logger\Monolog');
-        $mockDefaultLogger = $this
-            ->getMockBuilder('Magento\Framework\Logger\Monolog')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockObm
-            ->expects($this->once())
-            ->method('get')
-            ->with($this->equalTo('Magento\Framework\Logger\Monolog'))
-            ->willReturn($mockDefaultLogger);
-        /**
-         * Perform testing.
-         */
-        $logger = new Logger();
-        $this->assertTrue($logger instanceof \Praxigento\Logging\Logger);
-    }
-
-    public function test_constructor_cascadedAbsolutePath() {
+class Logger_UnitTest extends \PHPUnit_Framework_TestCase
+{
+    public function test_constructor_cascadedAbsolutePath()
+    {
+        /* === Test Data === */
         $CONFIG_FILE_NAME = __DIR__ . '/logging.yaml';
         $LOGGER_NAME = 'defaultLoggerName';
-        /** Mock ObjectManager and runtime environment */
-        $mockObm = $this
-            ->getMockBuilder('Magento\TestFramework\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-        ObjectManager::setInstance($mockObm);
-        // $this->getFilesystem()
-        $mockFs = $this
-            ->getMockBuilder('Symfony\Component\Filesystem\Filesystem')
-            ->getMock();
-        $mockObm
-            ->expects($this->at(0))
-            ->method('get')
-            ->with($this->equalTo('Symfony\Component\Filesystem\Filesystem'))
-            ->willReturn($mockFs);
-        $mockFs
-            ->expects($this->once())
-            ->method('isAbsolutePath')
-            ->willReturn(true);
-        // $this->_logger = ObjectManager::getInstance()->get('Magento\Framework\Logger\Monolog');
-        $mockDefaultLogger = $this
-            ->getMockBuilder('Magento\Framework\Logger\Monolog')
-            ->disableOriginalConstructor()
-            ->getMock();
-        /**
-         * Perform testing.
-         */
-        $logger = new Logger($CONFIG_FILE_NAME, $LOGGER_NAME);
+        /* === Setup Mocks === */
+        $mObm = Mockery::mock(ObjectManagerInterface::class);
+        // $this->_initLoggerCascade($configFile, $loggerName);
+        // $fs = $this->_obm->get(Filesystem::class);
+        $mFs = Mockery::mock(\Symfony\Component\Filesystem\Filesystem::class);
+        $mObm->shouldReceive('get')->once()
+            ->andReturn($mFs);
+        // if ($fs->isAbsolutePath($configFile)) {
+        $mFs->shouldReceive('isAbsolutePath')->once()
+            ->andReturn(true);
+        /* === Call and asserts  === */
+        $logger = new Logger($mObm, $CONFIG_FILE_NAME, $LOGGER_NAME);
         $this->assertTrue($logger instanceof \Praxigento\Logging\Logger);
     }
 
-    public function test_constructor_relativePath_missedConfig() {
-        if(!defined('BP')) {
+    public function test_constructor_defaultMagentoLogger()
+    {
+        /* === Setup Mocks === */
+        $mObm = Mockery::mock(ObjectManagerInterface::class);
+        // $this->_logger = $this->_obm->get(\Magento\Framework\Logger\Monolog::class);
+        $mLogger = Mockery::mock(\Magento\Framework\Logger\Monolog::class);
+        $mObm->shouldReceive('get')->once()
+            ->andReturn($mLogger);
+        /* === Call and asserts  === */
+        $logger = new Logger($mObm);
+        $this->assertTrue($logger instanceof \Praxigento\Logging\Logger);
+    }
+
+    public function test_constructor_exception()
+    {
+        /* === Test Data === */
+        $CONFIG_FILE_NAME = __DIR__ . '/logging.yaml';
+        $LOGGER_NAME = 'defaultLoggerName';
+        $REASON = 'any reason';
+        /* === Setup Mocks === */
+        $mObm = Mockery::mock(ObjectManagerInterface::class);
+        // private function _initLoggerCascade($configFile, $loggerName)
+        // $fs = $this->_obm->get(Filesystem::class);
+        $mObm->shouldReceive('get')->once()
+            ->andThrow(new \Exception($REASON));
+        // } finally {
+        // $this->_logger = $this->_obm->get(\Magento\Framework\Logger\Monolog::class);
+        $mLogger = Mockery::mock(\Magento\Framework\Logger\Monolog::class);
+        $mObm->shouldReceive('get')->once()
+            ->andReturn($mLogger);
+        // $this->warning($err);
+        $mLogger->shouldReceive('warning')->once()
+            ->with($REASON, []);
+        /* === Call and asserts  === */
+        $logger = new Logger($mObm, $CONFIG_FILE_NAME, $LOGGER_NAME);
+        $this->assertTrue($logger instanceof \Praxigento\Logging\Logger);
+    }
+
+    public function test_constructor_relativePath_missedConfig()
+    {
+        /* === Test Data === */
+        if (!defined('BP')) {
             define('BP', 'some/path/that/is/not/exist');
         }
         $CONFIG_FILE_NAME = './logging.yaml.missed';
         $LOGGER_NAME = 'defaultLoggerName';
-        /** Mock ObjectManager and runtime environment */
-        $mockObm = $this
-            ->getMockBuilder('Magento\TestFramework\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-        ObjectManager::setInstance($mockObm);
-        // $this->getFilesystem()
-        $mockFs = $this
-            ->getMockBuilder('Symfony\Component\Filesystem\Filesystem')
-            ->getMock();
-        $mockObm
-            ->expects($this->at(0))
-            ->method('get')
-            ->with($this->equalTo('Symfony\Component\Filesystem\Filesystem'))
-            ->willReturn($mockFs);
-        $mockFs
-            ->expects($this->once())
-            ->method('isAbsolutePath')
-            ->willReturn(false);
-        // $this->_logger = ObjectManager::getInstance()->get('Magento\Framework\Logger\Monolog');
-        $mockDefaultLogger = $this
-            ->getMockBuilder('Magento\Framework\Logger\Monolog')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockObm
-            ->expects($this->at(1))
-            ->method('get')
-            ->with($this->equalTo('Magento\Framework\Logger\Monolog'))
-            ->willReturn($mockDefaultLogger);
-        /**
-         * Perform testing.
-         */
-        $logger = new Logger($CONFIG_FILE_NAME, $LOGGER_NAME);
+        /* === Setup Mocks === */
+        $mObm = Mockery::mock(ObjectManagerInterface::class);
+        // $this->_initLoggerCascade($configFile, $loggerName);
+        // $fs = $this->_obm->get(Filesystem::class);
+        $mFs = Mockery::mock(\Symfony\Component\Filesystem\Filesystem::class);
+        $mObm->shouldReceive('get')->once()
+            ->andReturn($mFs);
+        // if ($fs->isAbsolutePath($configFile)) {
+        $mFs->shouldReceive('isAbsolutePath')->once()
+            ->andReturn(false);
+        // } finally {
+        // $this->_logger = $this->_obm->get(\Magento\Framework\Logger\Monolog::class);
+        $mLogger = Mockery::mock(\Magento\Framework\Logger\Monolog::class);
+        $mObm->shouldReceive('get')->once()
+            ->andReturn($mLogger);
+        // $this->warning($err);
+        $mLogger->shouldReceive('warning')->once();
+        /* === Call and asserts  === */
+        $logger = new Logger($mObm, $CONFIG_FILE_NAME, $LOGGER_NAME);
         $this->assertTrue($logger instanceof \Praxigento\Logging\Logger);
     }
 
-    public function test_constructor_exception() {
-        $CONFIG_FILE_NAME = __DIR__ . '/logging.yaml';
-        $LOGGER_NAME = 'defaultLoggerName';
-        $REASON = 'any reason';
-        /** Mock ObjectManager and runtime environment */
-        $mockObm = $this
-            ->getMockBuilder('Magento\TestFramework\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-        ObjectManager::setInstance($mockObm);
-        $mockObm
-            ->expects($this->at(0))
-            ->method('get')
-            ->with($this->equalTo('Symfony\Component\Filesystem\Filesystem'))
-            ->willThrowException(new Exception($REASON));
-        // $this->_logger = ObjectManager::getInstance()->get('Magento\Framework\Logger\Monolog');
-        $mockDefaultLogger = $this
-            ->getMockBuilder('Magento\Framework\Logger\Monolog')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockObm
-            ->expects($this->at(1))
-            ->method('get')
-            ->with($this->equalTo('Magento\Framework\Logger\Monolog'))
-            ->willReturn($mockDefaultLogger);
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('warning')
-            ->with($this->equalTo($REASON));
-        /**
-         * Perform testing.
-         */
-        $logger = new Logger($CONFIG_FILE_NAME, $LOGGER_NAME);
-        $this->assertTrue($logger instanceof \Praxigento\Logging\Logger);
-    }
-
-    public function test_logMethods() {
+    public function test_logMethods()
+    {
+        /* === Test Data === */
         $MSG = 'message';
-        $CONTEXT = [ ];
-        /** Mock ObjectManager and runtime environment */
-        $mockObm = $this
-            ->getMockBuilder('Magento\TestFramework\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-        ObjectManager::setInstance($mockObm);
-        // $this->_logger = ObjectManager::getInstance()->get('Magento\Framework\Logger\Monolog');
-        $mockDefaultLogger = $this
-            ->getMockBuilder('Magento\Framework\Logger\Monolog')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockObm
-            ->expects($this->once())
-            ->method('get')
-            ->with($this->equalTo('Magento\Framework\Logger\Monolog'))
-            ->willReturn($mockDefaultLogger);
+        $CONTEXT = [];
+        /* === Setup Mocks === */
+        $mObm = Mockery::mock(ObjectManagerInterface::class);
+        // $this->_logger = $this->_obm->get(\Magento\Framework\Logger\Monolog::class);
+        $mLogger = Mockery::mock(\Magento\Framework\Logger\Monolog::class);
+        $mObm->shouldReceive('get')->once()
+            ->andReturn($mLogger);
         // logger methods
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('alert');
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('critical');
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('debug');
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('emergency');
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('error');
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('info');
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('log');
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('notice');
-        $mockDefaultLogger
-            ->expects($this->once())
-            ->method('warning');
+        $mLogger->shouldReceive('alert', 'critical', 'debug', 'emergency', 'error', 'info', 'log', 'notice', 'warning');
         /**
          * Perform testing.
          */
-        $logger = new Logger();
+        $logger = new Logger($mObm);
         $this->assertTrue($logger instanceof \Praxigento\Logging\Logger);
         $logger->alert($MSG, $CONTEXT);
         $logger->critical($MSG, $CONTEXT);
