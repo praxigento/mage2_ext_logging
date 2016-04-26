@@ -4,7 +4,8 @@
     "praxigento/mage2_ext_logging": "dev-master"
   },
   "require-dev": {
-    "satooshi/php-coveralls": "dev-master"
+    "satooshi/php-coveralls": "dev-master",
+    "mockery/mockery": "^0.9.4"
   },
   "autoload-dev": {
     "psr-4": {
