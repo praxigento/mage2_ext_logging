@@ -13,7 +13,7 @@
   "require": {
     "php": ">=5.5",
     "symfony/filesystem": "*",
-    "theorchard/monolog-cascade": "^0.5"
+    "theorchard/monolog-cascade": "*"
   },
   "autoload": {
     "files": [
